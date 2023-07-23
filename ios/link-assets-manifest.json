@@ -1,0 +1,25 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Caprasimo-Regular.ttf",
+      "sha1": "69635154ccd4f68233cdc59173d6d32de5241d56"
+    },
+    {
+      "path": "assets/fonts/Pacifico-Regular.ttf",
+      "sha1": "baca1fca7fe74b61cb33aa0da48ec1a3a77bcf49"
+    },
+    {
+      "path": "assets/fonts/Play-Bold.ttf",
+      "sha1": "394247c9a5eeded939cf9d78b30687495b36f0dd"
+    },
+    {
+      "path": "assets/fonts/play-regular.ttf",
+      "sha1": "1597823ffd9c3a555b5081c7394ff0347adfbdbc"
+    },
+    {
+      "path": "assets/fonts/playbold.ttf",
+      "sha1": "394247c9a5eeded939cf9d78b30687495b36f0dd"
+    }
+  ]
+}
