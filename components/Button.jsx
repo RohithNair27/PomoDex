@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-function Button({placeholder, onPress}) {
+function Button({placeholder, onClick}) {
   return (
     <TouchableOpacity
       style={styles.body}
       onPress={() => {
-        onPress();
+        onClick();
       }}>
       <Text style={styles.text}>{placeholder}</Text>
     </TouchableOpacity>

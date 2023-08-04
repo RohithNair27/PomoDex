@@ -2,6 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {motiviationAxios} from '../Axios/axios';
+import {storeDataRead} from '../Redux/workPage/Actions';
 import {
   View,
   Text,
@@ -10,20 +11,21 @@ import {
   TouchableOpacity,
   StatusBar,
   SafeAreaView,
-  Animated,
-  Image,
 } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 
 function TimerPage({navigation}) {
   const [seconds, setSeconds] = useState(0 + '0');
-  const [minutes, setMinutes] = useState(25);
+  const [minutes, setMinutes] = useState(1);
   const [isRunning, setIsRunning] = useState();
   const [timer, setTimer] = useState(false);
   const [minTimer, setMinTimer] = useState(false);
   const [start, setStart] = useState(0);
   const [quotes, setQuotes] = useState();
 
+  const data = useSelector(state => state.SelectWorkReducer.text);
   let intervalId;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isRunning) {
@@ -37,6 +39,12 @@ function TimerPage({navigation}) {
           setSeconds(59);
           setMinutes(minutes - 1);
           setTimer(false);
+        }
+        if (minutes <= 0 && seconds <= 1) {
+          dispatch(storeDataRead(25));
+
+          setIsRunning(false);
+          setMinutes(1);
         }
       }, 1000);
     }
@@ -91,6 +99,7 @@ function TimerPage({navigation}) {
         </TouchableOpacity>
       </View>
       <View style={styles.TimeCard}>
+        <Text style={styles.workTextTimer}>{data}</Text>
         {timer ? (
           <Text style={styles.time}>{minutes + ' : 0' + seconds}</Text>
         ) : (
@@ -193,6 +202,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     elevation: 5,
   },
+  workTextTimer: {
+    color: 'black',
+    position: 'relative',
+    left: '7%',
+    top: '10%',
+    fontSize: 20,
+  },
   pomoTime: {
     position: 'absolute',
     display: 'flex',
@@ -200,7 +216,6 @@ const styles = StyleSheet.create({
 
     width: '90%',
     height: '10%',
-    top: '10%',
     left: '4%',
     flexDirection: 'row',
   },

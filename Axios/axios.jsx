@@ -5,7 +5,7 @@ export const motiviationAxios = () => {
   return axios
     .get(baseUrl)
     .then(response => {
-      return response.data[9].text;
+      return response.data[10].text;
     })
     .catch(err => {
       throw new Error('Error occurred during Axios request.');

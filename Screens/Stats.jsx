@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     position: 'relative',
-    top: '117%',
+    top: '110%',
     backgroundColor: 'white',
     width: '90%',
     left: '2%',

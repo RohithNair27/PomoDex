@@ -1,4 +1,5 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
+
 import {
   View,
   Text,
@@ -12,43 +13,46 @@ import {
 import TextBar from '../components/TextBar';
 import auth from '@react-native-firebase/auth';
 import Button from '../components/Button';
+import {useDispatch, useSelector} from 'react-redux';
+import WaitingIndicator from '../components/WaitingIndicator';
 function LoginPage({navigation}) {
-  const onLoginPress = () => {
-    navigation.navigate('TabNavigation');
-  };
+  const dispatch = useDispatch();
+  const [signedIn, setSignedIn] = useState(false);
+
   const authentication = () => {
     auth()
       .signInWithEmailAndPassword('nair@gmail.com', '12345678910')
       .then(() => {
-        console.log('you are in');
+        setSignedIn(true);
+
+        navigation.navigate('TabNavigation');
       })
       .catch(() => {
         console.log('you are out');
       });
   };
+  const username = useSelector(state => state.placeHolderReducer.username);
+  const password = useSelector(state => state.placeHolderReducer.password);
 
-  useEffect(() => {
-    authentication();
-  }, []);
   return (
     <SafeAreaView style={style.body}>
+      <WaitingIndicator />
       <StatusBar hidden={false} backgroundColor={'#edeff1'} />
 
       <View style={style.welcome}>
-        <Text style={style.loginText}>{`Hey, 
-Login Now!`}</Text>
-        <Text style={style.register}>Already a user / Register</Text>
+        <Text style={style.loginText}>{'Welcome to PomoDex'}</Text>
+        <Text style={style.register}>Rohith Nair</Text>
       </View>
       <View style={style.InputBox}>
         <View style={style.userName}>
-          <TextBar placeHolder={'userName'} />
+          <TextBar placeHolder={username} />
         </View>
         <View style={style.passWord}>
-          <TextBar placeHolder={'password'} />
+          <TextBar placeHolder={password} />
         </View>
       </View>
       <View style={style.button}>
-        <Button placeholder={'Login'} onPress={onLoginPress} />
+        <Button placeholder={'Login'} onClick={authentication} />
       </View>
       <TouchableOpacity style={style.forgotpassword}>
         <Text style={style.forgotpasswordText}>Forgot Password?</Text>
@@ -72,28 +76,29 @@ const style = StyleSheet.create({
     left: '5%',
   },
   loginText: {
-    fontWeight: '600',
+    fontWeight: '400',
     color: 'black',
-    fontSize: 50,
+    fontSize: 35,
   },
   register: {
     color: 'black',
     position: 'relative',
-    fontSize: 20,
+    fontSize: 45,
     top: '20%',
+    fontWeight: '800',
+    fontFamily: 'sans',
   },
 
   InputBox: {
     width: '80%',
     height: '20%',
     position: 'relative',
-    top: '44%',
-
+    top: '40%',
     left: '10%',
   },
   button: {
     positon: 'relative',
-    top: '45%',
+    top: '42%',
     left: '25%',
     width: '50%',
     height: '7%',
@@ -126,12 +131,10 @@ const style = StyleSheet.create({
   userName: {
     marginBottom: 10,
     height: '37%',
-    elevation: 1,
   },
   passWord: {
     marginBottom: 10,
     height: '37%',
-    elevation: 10,
   },
   submit: {
     borderRadius: 20,

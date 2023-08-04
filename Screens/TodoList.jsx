@@ -25,7 +25,7 @@ function TodoList() {
     dispatch(addTasks(taskAdded));
     setText('');
   };
-  const data = useSelector(state => state.Tasks);
+  const data = useSelector(state => state.TaskReducer.Tasks);
 
   const completeTasks = data => {
     dispatch(removeTasks(data));
