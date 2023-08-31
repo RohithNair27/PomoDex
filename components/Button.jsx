@@ -17,14 +17,15 @@ const styles = StyleSheet.create({
   body: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#EEE975',
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
-    color: 'black',
+    color: 'white',
     fontWeight: 'bold',
+    fontSize: 20,
   },
 });
 export default Button;
