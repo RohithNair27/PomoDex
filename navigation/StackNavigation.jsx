@@ -1,11 +1,12 @@
 import React from 'react';
 
 import LoginPage from '../Screens/LoginPage';
+import SignInPage from '../Screens/SignInPage';
+import OnBoarding from '../Screens/OnBoarding';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import TabNavigation from './TabNavigation';
-import Stats from '../Screens/Stats';
-import Work from '../Screens/Work';
+
 function StackNavigation() {
   const stack = createNativeStackNavigator();
   return (
@@ -14,10 +15,10 @@ function StackNavigation() {
         screenOptions={{
           headerShown: false,
         }}>
-        <stack.Screen name="LoginPage" component={LoginPage} />
-        <stack.Screen name="TabNavigation" component={TabNavigation} />
-        <stack.Screen name="Stats" component={Stats} />
-        <stack.Screen name="Work" component={Work} />
+        <stack.Screen name="OnBoarding" component={OnBoarding} />
+        {/* <stack.Screen name="LoginPage" component={LoginPage} /> */}
+        {/* <stack.Screen name="SignInPage" component={SignInPage} /> */}
+        {/* <stack.Screen name="TabNavigation" component={TabNavigation} /> */}
       </stack.Navigator>
     </NavigationContainer>
   );

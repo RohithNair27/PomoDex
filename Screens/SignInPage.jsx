@@ -1,35 +1,34 @@
-import React, {useEffect, useRef, useState} from 'react';
-
+import React from 'react';
 import {
   View,
   Text,
-  TouchableOpacity,
+  Dimensions,
   StyleSheet,
   SafeAreaView,
-  Dimensions,
   StatusBar,
-  Animated,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import TextBar from '../components/TextBar';
 import Button from '../components/Button';
-function LoginPage({navigation}) {
+function SignInPage() {
   return (
     <SafeAreaView style={style.body}>
       <StatusBar hidden={false} backgroundColor={'white'} />
       <View style={style.loginView}>
-        <Text style={style.loginText}>Login</Text>
+        <Text style={style.loginText}>Sign In</Text>
         <View style={style.InputOne}>
-          <TextBar placeHolder="Email" secure={false} />
+          <TextBar placeHolder="Name" secure={false} />
+        </View>
+        <View style={style.InputOne}>
+          <TextBar placeHolder={'Email'} secure={false} />
         </View>
         <View style={style.InputOne}>
           <TextBar placeHolder={'Password'} secure={true} />
         </View>
 
-        <Text style={style.forgetText}>Forgot your password?</Text>
-
         <View style={style.submit}>
-          <Button placeholder="Login" textColor={'white'} />
+          <Button placeholder="Create a new account" textColor={'white'} />
         </View>
       </View>
       <View style={style.loginWithGoogleButton}>
@@ -46,18 +45,20 @@ function LoginPage({navigation}) {
           <Button placeholder="Continue with Google" textColor={'black'} />
         </View>
         <View style={style.createNewAccountText}>
-          <Text style={{color: 'gray'}}>No account?</Text>
+          <Text style={{color: 'gray'}}>Already have an account?</Text>
           <TouchableOpacity style={style.createNewAccountButton}>
-            <Text style={{color: '#4683F9'}}> Create one</Text>
+            <Text style={{color: '#4683F9'}}> LogIn</Text>
           </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
   );
 }
+
+export default SignInPage;
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
-export default LoginPage;
+
 const style = StyleSheet.create({
   body: {
     backgroundColor: 'white',
