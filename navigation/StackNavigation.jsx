@@ -16,9 +16,9 @@ function StackNavigation() {
           headerShown: false,
         }}>
         <stack.Screen name="OnBoarding" component={OnBoarding} />
-        {/* <stack.Screen name="LoginPage" component={LoginPage} /> */}
-        {/* <stack.Screen name="SignInPage" component={SignInPage} /> */}
-        {/* <stack.Screen name="TabNavigation" component={TabNavigation} /> */}
+        <stack.Screen name="LoginPage" component={LoginPage} />
+        <stack.Screen name="SignInPage" component={SignInPage} />
+        <stack.Screen name="TabNavigation" component={TabNavigation} />
       </stack.Navigator>
     </NavigationContainer>
   );

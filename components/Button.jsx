@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -22,6 +22,13 @@ function Button({placeholder, onClick, textColor}) {
 
 const styles = StyleSheet.create({
   body: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  bodyFocused: {
     width: '100%',
     height: '100%',
     display: 'flex',

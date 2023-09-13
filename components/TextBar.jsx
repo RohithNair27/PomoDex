@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {View, Text, TextInput, StyleSheet, Animated} from 'react-native';
 
 function TextBar({placeHolder, secure}) {

@@ -8,7 +8,10 @@ import {
   StatusBar,
 } from 'react-native';
 import Button from '../components/Button';
-function OnBoarding() {
+function OnBoarding({navigation}) {
+  const onStartPress = () => {
+    navigation.navigate('LoginPage');
+  };
   return (
     <View style={styles.body}>
       <StatusBar hidden={false} backgroundColor={'white'} />
@@ -26,7 +29,11 @@ function OnBoarding() {
           </Text>
         </View>
         <View style={styles.submit}>
-          <Button placeholder="Start" textColor={'white'} />
+          <Button
+            placeholder="Start"
+            textColor={'white'}
+            onClick={onStartPress}
+          />
         </View>
       </View>
     </View>

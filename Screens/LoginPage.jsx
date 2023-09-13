@@ -14,6 +14,12 @@ import {
 import TextBar from '../components/TextBar';
 import Button from '../components/Button';
 function LoginPage({navigation}) {
+  const onCreateOnePress = () => {
+    navigation.navigate('SignInPage');
+  };
+  const onLoinPress = () => {
+    navigation.navigate('TabNavigation');
+  };
   return (
     <SafeAreaView style={style.body}>
       <StatusBar hidden={false} backgroundColor={'white'} />
@@ -26,10 +32,14 @@ function LoginPage({navigation}) {
           <TextBar placeHolder={'Password'} secure={true} />
         </View>
 
-        <Text style={style.forgetText}>Forgot your password?</Text>
+        {/* <Text style={style.forgetText}>Forgot your password?</Text> */}
 
         <View style={style.submit}>
-          <Button placeholder="Login" textColor={'white'} />
+          <Button
+            placeholder="Login"
+            textColor={'white'}
+            onClick={onLoinPress}
+          />
         </View>
       </View>
       <View style={style.loginWithGoogleButton}>
@@ -47,7 +57,9 @@ function LoginPage({navigation}) {
         </View>
         <View style={style.createNewAccountText}>
           <Text style={{color: 'gray'}}>No account?</Text>
-          <TouchableOpacity style={style.createNewAccountButton}>
+          <TouchableOpacity
+            style={style.createNewAccountButton}
+            onPress={() => onCreateOnePress()}>
             <Text style={{color: '#4683F9'}}> Create one</Text>
           </TouchableOpacity>
         </View>

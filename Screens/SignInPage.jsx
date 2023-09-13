@@ -11,7 +11,10 @@ import {
 } from 'react-native';
 import TextBar from '../components/TextBar';
 import Button from '../components/Button';
-function SignInPage() {
+function SignInPage({navigation}) {
+  const onLoginPress = () => {
+    navigation.navigate('LoginPage');
+  };
   return (
     <SafeAreaView style={style.body}>
       <StatusBar hidden={false} backgroundColor={'white'} />
@@ -46,7 +49,9 @@ function SignInPage() {
         </View>
         <View style={style.createNewAccountText}>
           <Text style={{color: 'gray'}}>Already have an account?</Text>
-          <TouchableOpacity style={style.createNewAccountButton}>
+          <TouchableOpacity
+            style={style.createNewAccountButton}
+            onPress={() => onLoginPress()}>
             <Text style={{color: '#4683F9'}}> LogIn</Text>
           </TouchableOpacity>
         </View>

@@ -6,7 +6,10 @@ import {View, Image} from 'react-native';
 function TabNavigation() {
   const Tab = createBottomTabNavigator();
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
       <Tab.Screen name="Task" component={Tasks} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
