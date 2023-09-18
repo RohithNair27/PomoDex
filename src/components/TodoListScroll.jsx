@@ -8,13 +8,13 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import TaskItems from './TaskItems';
-import {dayTasks} from '../src/TempData';
+import {onPressNavigation, dayTasks} from '../TempData';
 function ScrollTasks() {
   return (
     <ScrollView>
       {dayTasks.tasks.map(elements => {
         return (
-          <TouchableOpacity style={styles.eachTaskStyle}>
+          <TouchableOpacity style={styles.eachTaskStyle} key={elements.id}>
             <TaskItems data={elements.title} />
           </TouchableOpacity>
         );
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: 'gray',
+    borderColor: 'lightgray',
   },
 });
 export default ScrollTasks;

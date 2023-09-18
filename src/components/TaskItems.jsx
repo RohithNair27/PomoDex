@@ -1,12 +1,13 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import GreenTick from '../assets/Images/GreenTick.png';
+import fire from '../assets/Images/fireWithoutBg.png';
+import notepad from '../assets/Images/Notes.png';
+import testTube from '../assets/Images/testTubeWithoutBg.png';
 function TaskItems({data}) {
   return (
     <View style={styles.body}>
-      <Image
-        source={require('../assets/Images/GreenTick.png')}
-        style={styles.image}
-      />
+      <Image source={notepad} style={styles.image} />
 
       <View style={styles.taskInfo}>
         <Text style={styles.Text}>{data}</Text>

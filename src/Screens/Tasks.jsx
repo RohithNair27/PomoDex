@@ -1,9 +1,15 @@
 import React, {useState} from 'react';
-import {View, Text, Dimensions, StyleSheet, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import SearchBar from '../components/SearchBar';
-import ScrollTasks from '../components/ScrollTasks';
+import ScrollTasks from '../components/TodoListScroll';
 import FilterButtons from '../components/filterButtons';
-function Tasks() {
+function Tasks({navigation}) {
   const [selectedButtonStates, setselectedButtonStates] = useState({
     selectAll: {
       text: 'selectedAll',
@@ -22,6 +28,7 @@ function Tasks() {
       value: false,
     },
   });
+
   const onHandleTaskNavigation = getText => {
     setselectedButtonStates(prevState => {
       const updatedStates = {...prevState};
@@ -40,7 +47,7 @@ function Tasks() {
     <View style={styles.body}>
       <View style={styles.taskNavigationContianer}>
         <View style={styles.searchBarBody}>
-          <SearchBar />
+          <SearchBar placeHolder={'Search'} />
         </View>
         <View style={styles.tasksHeader}>
           <Text style={styles.tasksHeaderText}>Tasks</Text>
@@ -71,6 +78,13 @@ function Tasks() {
       <View style={styles.flatListContainer}>
         <ScrollTasks />
       </View>
+      <TouchableOpacity
+        style={styles.addTasksButton}
+        onPress={() => {
+          navigation.navigate('AddTask');
+        }}>
+        <Text style={styles.plusSign}>+</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -95,13 +109,13 @@ const styles = StyleSheet.create({
   searchBarBody: {
     top: '5%',
     width: '100%',
-    flex: 1 / 2.5,
+    flex: 1 / 1.5,
     backgroundColor: '#f3f3f3',
     borderRadius: 20,
   },
   flatListContainer: {
     // borderWidth: 1,
-    flex: 2,
+    flex: 2.5,
     width: '90%',
   },
   tasksHeader: {
@@ -128,7 +142,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '85%',
     // borderWidth: 1,
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   ScrollView: {
     borderWidth: 1,
@@ -137,6 +151,23 @@ const styles = StyleSheet.create({
   EachtaskItemBody: {
     borderWidth: 1,
     height: '100%',
+  },
+  addTasksButton: {
+    backgroundColor: '#4683F9',
+    position: 'absolute',
+    top: height - 150,
+    left: width - 80,
+    width: 60,
+    height: 60,
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 5,
+  },
+  plusSign: {
+    fontWeight: 400,
+    fontSize: 35,
+    color: 'white',
   },
 });
 export default Tasks;

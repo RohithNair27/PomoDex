@@ -36,5 +36,26 @@ export const dayTasks = {
       priority: 'Medium',
       completed: false,
     },
+    {
+      id: 6,
+      title: 'Grocery Shopping',
+      description: 'Buy groceries for the week on your way back home.',
+      priority: 'Medium',
+      completed: false,
+    },
+    {
+      id: 7,
+      title: 'Grocery Shopping',
+      description: 'Buy groceries for the week on your way back home.',
+      priority: 'Medium',
+      completed: false,
+    },
+    {
+      id: 8,
+      title: 'Grocery Shopping',
+      description: 'Buy groceries for the week on your way back home.',
+      priority: 'Medium',
+      completed: false,
+    },
   ],
 };
