@@ -1,13 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import GreenTick from '../assets/Images/GreenTick.png';
 import fire from '../assets/Images/fireWithoutBg.png';
 import notepad from '../assets/Images/Notes.png';
 import testTube from '../assets/Images/testTubeWithoutBg.png';
-function TaskItems({data}) {
+function TaskItems({data, showStage}) {
+  const imageSources = {
+    1: GreenTick,
+    2: fire,
+    3: notepad,
+    4: testTube,
+  };
+
+  const imageSource = imageSources[showStage];
+
   return (
     <View style={styles.body}>
-      <Image source={notepad} style={styles.image} />
+      <View style={styles.imageView}>
+        <Image
+          source={imageSource}
+          style={styles.image}
+          resizeMode={'contain'}
+        />
+      </View>
 
       <View style={styles.taskInfo}>
         <Text style={styles.Text}>{data}</Text>
@@ -37,11 +52,15 @@ const styles = StyleSheet.create({
   date: {
     color: 'black',
   },
+  imageView: {
+    width: '17%',
+    height: '100%',
+    // borderWidth: 1,
+  },
   image: {
     height: '100%',
-    borderWidth: 1,
-    padding: '10%',
-    width: '10%',
+
+    width: '100%',
   },
   options: {
     width: '20%',

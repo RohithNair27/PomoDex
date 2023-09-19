@@ -42,7 +42,7 @@ function Tasks({navigation}) {
       return updatedStates;
     });
   };
-
+  const window_height = Dimensions.get('window').height;
   return (
     <View style={styles.body}>
       <View style={styles.taskNavigationContianer}>
@@ -75,7 +75,11 @@ function Tasks({navigation}) {
           />
         </View>
       </View>
-      <View style={styles.flatListContainer}>
+      <View
+        style={{
+          ...styles.flatListContainer,
+          marginBottom: window_height * 0.09,
+        }}>
         <ScrollTasks />
       </View>
       <TouchableOpacity
@@ -115,8 +119,9 @@ const styles = StyleSheet.create({
   },
   flatListContainer: {
     // borderWidth: 1,
-    flex: 2.5,
+    flex: 2,
     width: '90%',
+    // marginBottom: '20%',
   },
   tasksHeader: {
     color: 'black',
