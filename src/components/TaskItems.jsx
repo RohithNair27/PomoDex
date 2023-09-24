@@ -4,7 +4,7 @@ import GreenTick from '../assets/Images/GreenTick.png';
 import fire from '../assets/Images/fireWithoutBg.png';
 import notepad from '../assets/Images/Notes.png';
 import testTube from '../assets/Images/testTubeWithoutBg.png';
-function TaskItems({data, showStage}) {
+function TaskItems({data, showStage, onTouch}) {
   const imageSources = {
     1: GreenTick,
     2: fire,

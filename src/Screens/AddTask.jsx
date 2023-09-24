@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {addTask} from '../Redux/toDoList/TodoListSlice';
 import {
   View,
   Text,
@@ -14,6 +16,27 @@ import fire from '../assets/Images/fireWithoutBg.png';
 import Notes from '../assets/Images/Notes.png';
 import testTube from '../assets/Images/testTubeWithoutBg.png';
 function AddTask({navigation}) {
+  const [taskDetails, settaskDetails] = useState({
+    name: '',
+    description: '',
+    date: '',
+  });
+
+  const onHandleChangeName = event => {
+    settaskDetails({...taskDetails, name: event});
+  };
+  const onHandleChangeDescription = text => {
+    settaskDetails({...taskDetails, description: text});
+  };
+  const onHandleChangeDate = text => {
+    settaskDetails({...taskDetails, date: text});
+  };
+  const dispatch = useDispatch();
+  const onHandleAddTask = () => {
+    dispatch(addTask(taskDetails));
+    navigation.navigate('TabNavigation');
+  };
+
   return (
     <View style={styles.body}>
       <View
@@ -39,20 +62,23 @@ function AddTask({navigation}) {
         <View style={styles.name}>
           <Text style={{left: '5%', color: 'gray'}}>Name</Text>
           <View style={styles.nameTextBox}>
-            <SearchBar />
+            <SearchBar info={taskDetails.name} onType={onHandleChangeName} />
           </View>
         </View>
 
         <View style={styles.Description}>
           <Text style={{left: '5%', color: 'gray'}}>Description</Text>
           <View style={{...styles.nameTextBox, height: '75%'}}>
-            <SearchBar />
+            <SearchBar
+              info={taskDetails.description}
+              onType={onHandleChangeDescription}
+            />
           </View>
         </View>
         <View style={styles.Date}>
           <Text style={{left: '5%', color: 'gray'}}>Date</Text>
           <View style={styles.nameTextBox}>
-            <SearchBar />
+            <SearchBar info={taskDetails.date} onType={onHandleChangeDate} />
           </View>
         </View>
       </View>
@@ -83,7 +109,11 @@ function AddTask({navigation}) {
           </TouchableOpacity>
         </View>
         <View style={styles.ButtonBody}>
-          <Button placeholder={'Add Task'} textColor={'white'} />
+          <Button
+            placeholder={'Add Task'}
+            textColor={'white'}
+            onClick={onHandleAddTask}
+          />
         </View>
       </View>
     </View>
