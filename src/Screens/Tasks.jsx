@@ -5,11 +5,14 @@ import {
   Dimensions,
   StyleSheet,
   TouchableOpacity,
+  Modal,
 } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import ScrollTasks from '../components/TodoListScroll';
 import FilterButtons from '../components/filterButtons';
+import Stages from '../components/Stages';
 function Tasks({navigation}) {
+  const [modalVisible, setModalVisible] = useState(true);
   const [selectedButtonStates, setselectedButtonStates] = useState({
     selectAll: {
       text: 'selectedAll',
@@ -42,6 +45,12 @@ function Tasks({navigation}) {
       return updatedStates;
     });
   };
+
+  const onPressTaskNavigation = (changeStage, data) => {
+    navigation.navigate('AddTask', {changeStage: changeStage, data: data});
+  };
+
+  const onSearchButton = () => {};
   const window_height = Dimensions.get('window').height;
   return (
     <View style={styles.body}>
@@ -80,12 +89,12 @@ function Tasks({navigation}) {
           ...styles.flatListContainer,
           marginBottom: window_height * 0.09,
         }}>
-        <ScrollTasks />
+        <ScrollTasks onTouch={onPressTaskNavigation} />
       </View>
       <TouchableOpacity
         style={styles.addTasksButton}
         onPress={() => {
-          navigation.navigate('AddTask');
+          navigation.navigate('AddTask', {changeStage: false});
         }}>
         <Text style={styles.plusSign}>+</Text>
       </TouchableOpacity>

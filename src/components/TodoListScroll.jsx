@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import TaskItems from './TaskItems';
 import {useSelector, useDispatch} from 'react-redux';
-import {inProgress} from '../Redux/toDoList/TodoListSlice';
-function ScrollTasks() {
+import {changeProgress} from '../Redux/toDoList/TodoListSlice';
+function ScrollTasks({onTouch}) {
   const [taskList, setTaskList] = useState([]);
   const dispatch = useDispatch();
   const TodoTasks = useSelector(state => {
@@ -19,16 +19,11 @@ function ScrollTasks() {
   });
   useEffect(() => {
     if (TodoTasks) {
-      // console.log(TodoTasks);
       setTaskList(TodoTasks);
     } else {
       setTaskList([]);
     }
   }, [TodoTasks]);
-
-  const handleStageChange = ele => {
-    dispatch(changeProgress(ele));
-  };
 
   const window_height = Dimensions.get('window').height;
 
@@ -39,7 +34,7 @@ function ScrollTasks() {
           <TouchableOpacity
             style={{...styles.eachTaskStyle, height: window_height * 0.1}}
             key={elements.id}
-            onPress={() => handleStageChange(elements)}>
+            onPress={() => onTouch(true, elements)}>
             <TaskItems data={elements.name} showStage={elements.stage} />
           </TouchableOpacity>
         );

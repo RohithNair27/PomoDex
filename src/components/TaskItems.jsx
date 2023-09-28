@@ -6,10 +6,10 @@ import notepad from '../assets/Images/Notes.png';
 import testTube from '../assets/Images/testTubeWithoutBg.png';
 function TaskItems({data, showStage, onTouch}) {
   const imageSources = {
-    1: GreenTick,
+    1: notepad,
     2: fire,
-    3: notepad,
-    4: testTube,
+    3: testTube,
+    4: GreenTick,
   };
 
   const imageSource = imageSources[showStage];

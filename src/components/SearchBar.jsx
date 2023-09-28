@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TextInput, StyleSheet} from 'react-native';
-function SearchBar({placeHolder, info, onType}) {
+function SearchBar({placeHolder, info, onType, onClickErrorCheck, type}) {
   return (
     <View style={styles.body}>
       <TextInput
@@ -9,6 +9,7 @@ function SearchBar({placeHolder, info, onType}) {
         placeholderTextColor={'black'}
         value={info}
         onChangeText={onType}
+        onEndEditing={() => onClickErrorCheck(type)}
       />
     </View>
   );

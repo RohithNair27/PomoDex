@@ -39,8 +39,10 @@ const TodoSlice = createSlice({
         if (action.payload.id === state.Task[i].id) {
           const updatedTask = {
             ...state.Task[i],
-            stage: state.Task[i].stage + 1,
+            // stage: state.Task[i].stage + 1,
+            stage: action.payload.stage,
           };
+          console.log(updatedTask);
           state.Task[i] = updatedTask;
         }
       }
