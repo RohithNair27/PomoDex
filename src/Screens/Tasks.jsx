@@ -1,38 +1,53 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
   Dimensions,
   StyleSheet,
   TouchableOpacity,
-  Modal,
+  ScrollView,
 } from 'react-native';
-import SearchBar from '../components/SearchBar';
-import ScrollTasks from '../components/TodoListScroll';
+import SearchBar from '../components/ui/SearchBar';
+
 import FilterButtons from '../components/filterButtons';
 import Stages from '../components/Stages';
+import {useSelector} from 'react-redux';
+import TaskItems from '../components/TaskItems';
 function Tasks({navigation}) {
   const [modalVisible, setModalVisible] = useState(true);
+  const [searchText, setSearchText] = useState('');
   const [selectedButtonStates, setselectedButtonStates] = useState({
     selectAll: {
       text: 'selectedAll',
       value: false,
+      stage: 1,
     },
     selectTodo: {
       text: 'selectedTodo',
       value: true,
+      stage: 2,
     },
     selectInProgress: {
       text: 'selectedInProgress',
       value: false,
+      stage: 3,
     },
     selectDone: {
       text: 'selectedDone',
       value: false,
+      stage: 4,
     },
   });
 
-  const onHandleTaskNavigation = getText => {
+  //!This function gets the data from Store
+  const TodoTasks = useSelector(state => {
+    return state.Task;
+  });
+  const handleTextChangeSearch = element => {
+    setSearchText(element);
+  };
+
+  const onHandleTaskStage = getText => {
     setselectedButtonStates(prevState => {
       const updatedStates = {...prevState};
       for (let key in updatedStates) {
@@ -46,41 +61,46 @@ function Tasks({navigation}) {
     });
   };
 
+  //* we are sending data just to do conditional navigation
   const onPressTaskNavigation = (changeStage, data) => {
     navigation.navigate('AddTask', {changeStage: changeStage, data: data});
   };
 
-  const onSearchButton = () => {};
   const window_height = Dimensions.get('window').height;
   return (
     <View style={styles.body}>
       <View style={styles.taskNavigationContianer}>
         <View style={styles.searchBarBody}>
-          <SearchBar placeHolder={'Search'} />
+          <SearchBar
+            placeHolder={'Search'}
+            info={searchText}
+            onType={handleTextChangeSearch}
+            onClickErrorCheck={null}
+          />
         </View>
         <View style={styles.tasksHeader}>
           <Text style={styles.tasksHeaderText}>Tasks</Text>
         </View>
         <View style={styles.taskNavigator}>
           <FilterButtons
-            placeHolder={'All'}
-            selectState={selectedButtonStates.selectAll}
-            handle={onHandleTaskNavigation}
-          />
-          <FilterButtons
             placeHolder={'To Do'}
             selectState={selectedButtonStates.selectTodo}
-            handle={onHandleTaskNavigation}
+            handle={onHandleTaskStage}
           />
           <FilterButtons
             placeHolder={'In Progess'}
             selectState={selectedButtonStates.selectInProgress}
-            handle={onHandleTaskNavigation}
+            handle={onHandleTaskStage}
+          />
+          <FilterButtons
+            placeHolder={'Hold'}
+            selectState={selectedButtonStates.selectAll}
+            handle={onHandleTaskStage}
           />
           <FilterButtons
             placeHolder={'Done'}
             selectState={selectedButtonStates.selectDone}
-            handle={onHandleTaskNavigation}
+            handle={onHandleTaskStage}
           />
         </View>
       </View>
@@ -89,7 +109,20 @@ function Tasks({navigation}) {
           ...styles.flatListContainer,
           marginBottom: window_height * 0.09,
         }}>
-        <ScrollTasks onTouch={onPressTaskNavigation} />
+        <ScrollView>
+          {TodoTasks.filter(data => {
+            return data.name.toLowerCase().includes(searchText.toLowerCase());
+          }).map(elements => {
+            return (
+              <TouchableOpacity
+                style={{...styles.eachTaskStyle, height: window_height * 0.1}}
+                key={elements.id}
+                onPress={() => onTouch(true, elements)}>
+                <TaskItems data={elements} showStage={elements.stage} />
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
       </View>
       <TouchableOpacity
         style={styles.addTasksButton}
@@ -182,6 +215,13 @@ const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 35,
     color: 'white',
+  },
+  eachTaskStyle: {
+    flex: 1,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'lightgray',
   },
 });
 export default Tasks;

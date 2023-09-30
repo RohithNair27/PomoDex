@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Dimensions, StyleSheet, Image} from 'react-native';
-import Button from '../components/Button';
+import Button from '../components/ui/Button';
 import faceIcon from '../assets/Images/faceIcon.png';
 function Profile() {
   return (

@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import TextBar from '../components/TextBar';
-import Button from '../components/Button';
+import Button from '../components/ui/Button';
 function SignInPage({navigation}) {
   const onLoginPress = () => {
     navigation.navigate('LoginPage');

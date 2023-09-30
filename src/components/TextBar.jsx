@@ -2,25 +2,12 @@ import React, {useEffect, useRef, useState} from 'react';
 import {View, Text, TextInput, StyleSheet, Animated} from 'react-native';
 
 function TextBar({placeHolder, secure}) {
-  const distance = useRef(new Animated.Value(10)).current;
-
-  const animate = () => {
-    Animated.timing(distance, {
-      toValue: -10,
-      duration: 1000,
-      useNativeDriver: true,
-    }).start();
-  };
-
   return (
     <View style={styles.body}>
       <View style={styles.placeHolderStyle}>
         <Text style={{color: 'black'}}>{placeHolder}</Text>
       </View>
-      <TextInput
-        style={styles.Text}
-        onFocus={() => animate()}
-        secureTextEntry={secure}></TextInput>
+      <TextInput style={styles.Text} secureTextEntry={secure}></TextInput>
     </View>
   );
 }

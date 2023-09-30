@@ -25,8 +25,8 @@ function TaskItems({data, showStage, onTouch}) {
       </View>
 
       <View style={styles.taskInfo}>
-        <Text style={styles.Text}>{data}</Text>
-        <Text style={styles.date}>8 september</Text>
+        <Text style={styles.Text}>{data.name}</Text>
+        <Text style={styles.date}>{data.date}</Text>
       </View>
       <TouchableOpacity style={styles.options}>
         <Text style={styles.optionsDots}>...</Text>

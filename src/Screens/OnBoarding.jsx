@@ -7,7 +7,7 @@ import {
   Image,
   StatusBar,
 } from 'react-native';
-import Button from '../components/Button';
+import Button from '../components/ui/Button';
 function OnBoarding({navigation}) {
   const onStartPress = () => {
     navigation.navigate('LoginPage');

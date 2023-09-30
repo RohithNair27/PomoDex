@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {addTask, changeProgress} from '../Redux/toDoList/TodoListSlice';
 import {View, Text, Dimensions, StyleSheet} from 'react-native';
-import SearchBar from '../components/SearchBar';
-import Button from '../components/Button';
+import SearchBar from '../components/ui/SearchBar';
+import Button from '../components/ui/Button';
 import Stages from '../components/Stages';
 // import {changeProgress} from '../Redux/toDoList/TodoListSlice';
 function AddTask({route, navigation}) {
@@ -28,6 +28,12 @@ function AddTask({route, navigation}) {
     }
     if (taskDetails.date === '' && (type === 'Date' || type === 'Allcheck')) {
       setValidationTextDate('Please enter some date');
+    } else if (
+      taskDetails.description !== 'd{2}-d{2}-d{4}' &&
+      taskDetails.date.length >= 1 &&
+      type === 'Date'
+    ) {
+      setValidationTextDate('Please give date in correct format dd-mm-yy');
     } else {
       setValidationTextDate('Date');
     }
@@ -88,7 +94,7 @@ function AddTask({route, navigation}) {
               fontSize: 35,
               fontWeight: '600',
             }}>
-            {changeStage ? 'New task' : 'Task'}
+            {changeStage ? 'Task' : 'New Task'}
           </Text>
         </View>
         <View style={styles.name}>
