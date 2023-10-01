@@ -9,7 +9,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import TextBar from '../components/TextBar';
+import TextBar from '../components/ui/TextBar';
 import Button from '../components/ui/Button';
 function SignInPage({navigation}) {
   const onLoginPress = () => {

@@ -2,16 +2,22 @@ import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import GreenTick from '../assets/Images/GreenTick.png';
 import fire from '../assets/Images/fireWithoutBg.png';
-import Notes from '../assets/Images/Notes.png';
+import notepad from '../assets/Images/Notes.png';
 import testTube from '../assets/Images/testTubeWithoutBg.png';
 
-const Stages = () => {
+const Stages = ({onHandleStageChange}) => {
+  const imageSources = {
+    1: notepad,
+    2: fire,
+    3: testTube,
+    4: GreenTick,
+  };
   return (
     <View style={styles.statusBody}>
       <TouchableOpacity
         style={styles.imageButton}
         onPress={() => onHandleStageChange(1)}>
-        <Image source={Notes} style={styles.imageSize} />
+        <Image source={notepad} style={styles.imageSize} />
         <Text style={{color: 'black', fontWeight: 600}}>To do</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -24,7 +30,7 @@ const Stages = () => {
         style={styles.imageButton}
         onPress={() => onHandleStageChange(3)}>
         <Image source={testTube} style={styles.imageSize} />
-        <Text style={{color: 'black', fontWeight: 600}}>Testing</Text>
+        <Text style={{color: 'black', fontWeight: 600}}>Hold</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.imageButton}
@@ -44,10 +50,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   statusBody: {
-    // flex: 1,
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
   },
-  imageSize: {resizeMode: 'contain', height: '40%', width: '70%'},
+  imageSize: {resizeMode: 'contain', height: '60%', width: '80%'},
 });

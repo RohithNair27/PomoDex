@@ -1,22 +1,7 @@
 import {createSlice, nanoid} from '@reduxjs/toolkit';
 
 const initialState = {
-  Task: [
-    // {
-    //   id: 1,
-    //   name: 'Go',
-    //   stage: 1,
-    //   date: '29 sep',
-    //   about: 'This is to go',
-    // },
-    // {
-    //   id: 1,
-    //   name: 'Go',
-    //   stage: 1,
-    //   date: '29 sep',
-    //   about: 'This is to go',
-    // },
-  ],
+  Task: [],
 };
 
 const TodoSlice = createSlice({
@@ -39,10 +24,9 @@ const TodoSlice = createSlice({
         if (action.payload.id === state.Task[i].id) {
           const updatedTask = {
             ...state.Task[i],
-            // stage: state.Task[i].stage + 1,
             stage: action.payload.stage,
           };
-          console.log(updatedTask);
+
           state.Task[i] = updatedTask;
         }
       }

@@ -11,7 +11,7 @@ import {
   Animated,
   Image,
 } from 'react-native';
-import TextBar from '../components/TextBar';
+import TextBar from '../components/ui/TextBar';
 import Button from '../components/ui/Button';
 function LoginPage({navigation}) {
   const onCreateOnePress = () => {

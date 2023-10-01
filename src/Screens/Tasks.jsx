@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   View,
   Text,
@@ -6,33 +7,37 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Modal,
+  StatusBar,
 } from 'react-native';
 import SearchBar from '../components/ui/SearchBar';
-
 import FilterButtons from '../components/filterButtons';
 import Stages from '../components/Stages';
-import {useSelector} from 'react-redux';
 import TaskItems from '../components/TaskItems';
+import Button from '../components/ui/Button';
+import {changeProgress} from '../Redux/toDoList/TodoListSlice';
+
 function Tasks({navigation}) {
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const [searchText, setSearchText] = useState('');
+  const [itemSelected, setItemSelected] = useState();
   const [selectedButtonStates, setselectedButtonStates] = useState({
-    selectAll: {
-      text: 'selectedAll',
-      value: false,
+    Todo: {
+      text: 'Todo',
+      value: true,
       stage: 1,
     },
-    selectTodo: {
-      text: 'selectedTodo',
-      value: true,
+    selectedInProgress: {
+      text: 'selectedInProgress',
+      value: false,
       stage: 2,
     },
-    selectInProgress: {
-      text: 'selectedInProgress',
+    selectedOnHold: {
+      text: 'selectedOnHold',
       value: false,
       stage: 3,
     },
-    selectDone: {
+    selectedDone: {
       text: 'selectedDone',
       value: false,
       stage: 4,
@@ -43,8 +48,20 @@ function Tasks({navigation}) {
   const TodoTasks = useSelector(state => {
     return state.Task;
   });
+
+  //handle textchange in Search button
   const handleTextChangeSearch = element => {
     setSearchText(element);
+  };
+
+  //handles change in visibility of modal
+  const handleModelChange = element => {
+    setItemSelected(element);
+    setModalVisible(!modalVisible);
+  };
+
+  const onHandleStageChange = stage => {
+    dispatch(changeProgress({...itemSelected, stage: stage}));
   };
 
   const onHandleTaskStage = getText => {
@@ -60,22 +77,43 @@ function Tasks({navigation}) {
       return updatedStates;
     });
   };
+  const onHandleTaskReturnStage = () => {
+    for (let key in selectedButtonStates) {
+      if (selectedButtonStates[key].value === true) {
+        return selectedButtonStates[key].stage;
+      } else {
+        continue;
+      }
+    }
+  };
 
   //* we are sending data just to do conditional navigation
   const onPressTaskNavigation = (changeStage, data) => {
     navigation.navigate('AddTask', {changeStage: changeStage, data: data});
   };
 
+  const dispatch = useDispatch();
+  const onChangeStage = () => {};
+
   const window_height = Dimensions.get('window').height;
+  const window_width = Dimensions.get('window').width;
   return (
-    <View style={styles.body}>
+    <View
+      style={
+        modalVisible
+          ? {...styles.body, backgroundColor: 'lightgray'}
+          : styles.body
+      }>
+      {modalVisible ? <StatusBar backgroundColor={'lightgray'} /> : null}
       <View style={styles.taskNavigationContianer}>
         <View style={styles.searchBarBody}>
           <SearchBar
             placeHolder={'Search'}
             info={searchText}
             onType={handleTextChangeSearch}
-            onClickErrorCheck={null}
+            onClickErrorCheck={() => {
+              null;
+            }}
           />
         </View>
         <View style={styles.tasksHeader}>
@@ -84,22 +122,22 @@ function Tasks({navigation}) {
         <View style={styles.taskNavigator}>
           <FilterButtons
             placeHolder={'To Do'}
-            selectState={selectedButtonStates.selectTodo}
+            selectState={selectedButtonStates.Todo}
             handle={onHandleTaskStage}
           />
           <FilterButtons
             placeHolder={'In Progess'}
-            selectState={selectedButtonStates.selectInProgress}
+            selectState={selectedButtonStates.selectedInProgress}
             handle={onHandleTaskStage}
           />
           <FilterButtons
             placeHolder={'Hold'}
-            selectState={selectedButtonStates.selectAll}
+            selectState={selectedButtonStates.selectedOnHold}
             handle={onHandleTaskStage}
           />
           <FilterButtons
             placeHolder={'Done'}
-            selectState={selectedButtonStates.selectDone}
+            selectState={selectedButtonStates.selectedDone}
             handle={onHandleTaskStage}
           />
         </View>
@@ -111,13 +149,16 @@ function Tasks({navigation}) {
         }}>
         <ScrollView>
           {TodoTasks.filter(data => {
-            return data.name.toLowerCase().includes(searchText.toLowerCase());
+            return (
+              data.name.toLowerCase().includes(searchText.toLowerCase()) &&
+              data.stage === onHandleTaskReturnStage()
+            );
           }).map(elements => {
             return (
               <TouchableOpacity
                 style={{...styles.eachTaskStyle, height: window_height * 0.1}}
                 key={elements.id}
-                onPress={() => onTouch(true, elements)}>
+                onPress={() => handleModelChange(elements)}>
                 <TaskItems data={elements} showStage={elements.stage} />
               </TouchableOpacity>
             );
@@ -131,6 +172,43 @@ function Tasks({navigation}) {
         }}>
         <Text style={styles.plusSign}>+</Text>
       </TouchableOpacity>
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => handleModelChange()}>
+        <View style={styles.modalView}>
+          <View
+            style={{
+              // flex: 1,
+              borderWidth: 2,
+              width: '40%',
+              top: '5%',
+              backgroundColor: 'back',
+            }}></View>
+          <View style={{flex: 0.4, justifyContent: 'center'}}>
+            <Text
+              style={{
+                color: 'black',
+                top: '14%',
+                fontWeight: 700,
+                fontSize: 20,
+              }}>
+              Change the status
+            </Text>
+          </View>
+          <View style={styles.stagesIconsModal}>
+            <Stages onHandleStageChange={onHandleStageChange} />
+          </View>
+          <View style={styles.ButtonBody}>
+            <Button
+              placeholder={'Close'}
+              textColor={'red'}
+              onClick={() => handleModelChange()}
+            />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -222,6 +300,35 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     borderColor: 'lightgray',
+  },
+  popUp: {
+    height: '40%',
+    width: '100%',
+    backgroundColor: 'green',
+  },
+  modalView: {
+    height: height * 0.37,
+    backgroundColor: 'white',
+    // borderWidth: 1,
+    borderRadius: 40,
+    width: '99%',
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: '-2%',
+    shadowColor: 'black',
+    elevation: 100,
+    alignItems: 'center',
+    paddingBottom: '7%',
+  },
+  stagesIconsModal: {
+    // borderWidth: 1,
+    flex: 0.6,
+  },
+  ButtonBody: {
+    flex: 0.4,
+    width: '90%',
+    borderRadius: 10,
+    backgroundColor: '#ffe3e3',
   },
 });
 export default Tasks;
