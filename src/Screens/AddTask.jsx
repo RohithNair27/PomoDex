@@ -5,7 +5,6 @@ import {View, Text, Dimensions, StyleSheet} from 'react-native';
 import SearchBar from '../components/ui/SearchBar';
 import Button from '../components/ui/Button';
 import Stages from '../components/Stages';
-// import {changeProgress} from '../Redux/toDoList/TodoListSlice';
 function AddTask({route, navigation}) {
   const [taskDetails, settaskDetails] = useState({
     name: '',
@@ -22,7 +21,7 @@ function AddTask({route, navigation}) {
   //! Here is the function to check validation
   const onHandleErrorDetection = type => {
     if (taskDetails.name === '' && (type === 'Name' || type === 'Allcheck')) {
-      setValidationTextName('Please enter some proper name');
+      setValidationTextName('Please enter Task name');
     } else {
       setValidationTextName('Name');
     }

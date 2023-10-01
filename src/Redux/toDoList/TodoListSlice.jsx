@@ -16,7 +16,7 @@ const TodoSlice = createSlice({
         about: action.payload.description,
         date: action.payload.date,
       };
-
+      console.log(newTasks);
       state.Task.push(newTasks);
     },
     changeProgress: function (state, action) {

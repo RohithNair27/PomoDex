@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
   addTasksButton: {
     backgroundColor: '#4683F9',
     position: 'absolute',
-    top: height - 150,
+    top: height - 170,
     left: width - 80,
     width: 60,
     height: 60,

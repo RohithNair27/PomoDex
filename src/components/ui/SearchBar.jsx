@@ -9,7 +9,7 @@ function SearchBar({placeHolder, info, onType, onClickErrorCheck, type}) {
         placeholderTextColor={'black'}
         value={info}
         onChangeText={onType}
-        onEndEditing={() => onClickErrorCheck(type)}
+        onBlur={() => onClickErrorCheck(type)}
       />
     </View>
   );

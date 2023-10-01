@@ -48,9 +48,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height,
     width,
+
+    // bottom: height * 0.02,
   },
   TickImage: {
     resizeMode: 'contain',
+
     flex: 1,
     width: '80%',
   },
